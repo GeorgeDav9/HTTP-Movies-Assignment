@@ -9,6 +9,10 @@ export default class Movie extends React.Component {
     };
   }
 
+  item = this.items.find(
+    thing => `${thing.id}` === this.props.params.id
+  )
+
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
   }
@@ -31,6 +35,16 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
+  routueToUpdate = e => {
+    e.persist()
+    e.preventDefault();
+    this.props.history.push(`/update-movie/${this.item.is}`);
+  };
+
+  deleteHandler = e => {
+    this.props.deleteItem(this.state.movie.id);
+  }
+
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
@@ -42,6 +56,8 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <button onClick={this.routueToUpdate}>Edit</button>
+        <button onClick={this.deleteHandler}>Delete</button>
       </div>
     );
   }
