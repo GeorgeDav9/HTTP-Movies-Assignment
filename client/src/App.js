@@ -8,6 +8,7 @@ import axios from "axios"
 import AddMovie from './Movies/AddMovie'
 
 
+
 const App = (props) => {
   const [savedList, setSavedList] = useState([]);
 
@@ -55,7 +56,6 @@ const App = (props) => {
       .catch(err => console.log(err));
   };
 
-
   return (
     <>
       <SavedList list={savedList} />
@@ -66,15 +66,13 @@ const App = (props) => {
       <Route path="/update-movie/:id" render={props => (
           <UpdateMovie {...props} items={items} updateItem={updateItem} />
         )}  />
-
       <Route
         path="/movies/:id"
         render={props => {
-          return <Movie {...props} addToSavedList={addToSavedList}  items={items} deleteItem={deleteItem} />;
+          return <Movie {...props} addToSavedList={addToSavedList} items={items} deleteItem={deleteItem} />;
         }}
       />
     </>
   );
 };
-
-export default App;
+export default withRouter(App);

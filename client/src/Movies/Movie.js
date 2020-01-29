@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
+
 export default class Movie extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -9,8 +11,8 @@ export default class Movie extends React.Component {
     };
   }
 
-  item = this.items.find(
-    thing => `${thing.id}` === this.props.params.id
+  item = this.props.items.find(
+    thing => `${thing.id}` === this.props.match.params.id
   )
 
   componentDidMount() {
@@ -38,7 +40,7 @@ export default class Movie extends React.Component {
   routueToUpdate = e => {
     e.persist()
     e.preventDefault();
-    this.props.history.push(`/update-movie/${this.item.is}`);
+    this.props.history.push(`/update-movie/${this.item.id}`);
   };
 
   deleteHandler = e => {
@@ -56,7 +58,7 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
-        <button onClick={this.routueToUpdate}>Edit</button>
+        <button onClick={this.routeToUpdate}>Edit</button>
         <button onClick={this.deleteHandler}>Delete</button>
       </div>
     );
